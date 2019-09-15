@@ -52,7 +52,7 @@ public class DriverControl extends LinearOpMode {
         telemetry.addData("Target Power", lrLeftStick);
         telemetry.addData("Motor Power", frontLeft.getPower());
         telemetry.addData("Motor Power", frontRight.getPower());
-        telemetry.addData("Motor Power", backLeft.getPower());
+        telemetry.addData("Motor Power", backLeft.getPower());//hi test
         telemetry.addData("Motor Power", backRight.getPower());
     }
     public void turn(double lrRightStick){
