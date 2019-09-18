@@ -22,8 +22,13 @@ public class DriverControl extends LinearOpMode {
         double fbLeftStick=0; 
         double lrLeftStick=0;
         double lrRightStick=0;
+        double fbRightStick=0;
         //put all movement code in here
         while(opModeIsActive()){
+            fbLeftStick = -this.gamepad1.left_stick_y;
+            fbRightStick = -this.gamepad1.right_stick_y;
+            lrLeftStick = -this.gamepad1.left_stick_x; //if turning the wrong direction reverse the sign
+            lrRightStick = -this.gamepad1.right_stick_x; //if turning the wrong direction reverse the sign
             movingFB(fbLeftStick);
             strafe(lrLeftStick);
             turn(lrRightStick);
@@ -31,8 +36,21 @@ public class DriverControl extends LinearOpMode {
             telemetry.update();
         }
     }
+    public void tank(double fbLeftStick, double fbRightStick){
+        frontLeft.setPower(fbLeftStick);
+        backLeft.setPower(fbLeftStick);
+        backRight.setPower(fbRightStick);
+        frontRight.setPower(fbRightstick);
+        telemetry.addData("Target Power", fbLeftStick);
+        telemetry.addData("Target Power", fbRightStick);
+        telemetry.addData("Motor Power", frontLeft.getPower());
+        telemetry.addData("Motor Power", frontRight.getPower());
+        telemetry.addData("Motor Power", backLeft.getPower());//hi test
+        telemetry.addData("Motor Power", backRight.getPower());
+        
+    }
     public void movingFB(double fbLeftStick){
-        fbLeftStick = -this.gamepad1.left_stick_y;
+        
         frontLeft.setPower(fbLeftStick);
         frontRight.setPower(fbLeftStick);
         backLeft.setPower(fbLeftStick);
@@ -44,7 +62,7 @@ public class DriverControl extends LinearOpMode {
         telemetry.addData("Motor Power", backRight.getPower());
     }
     public void strafe(double lrLeftStick){
-        lrLeftStick = -this.gamepad1.left_stick_x; //if turning the wrong direction reverse the sign
+        
         frontLeft.setPower(lrLeftStick);
         backLeft.setPower(-lrLeftStick);
         frontRight.setPower(-lrLeftStick);
@@ -56,7 +74,7 @@ public class DriverControl extends LinearOpMode {
         telemetry.addData("Motor Power", backRight.getPower());
     }
     public void turn(double lrRightStick){
-        lrRightStick = -this.gamepad1.right_stick_x; //if turning the wrong direction reverse the sign
+        
         frontLeft.setPower(lrRightStick);
         backLeft.setPower(lrRightStick);
         frontRight.setPower(-lrRightStick);
