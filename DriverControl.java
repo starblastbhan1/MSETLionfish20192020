@@ -9,7 +9,7 @@ public class DriverControl extends LinearOpMode {
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
-    private DcMotor m1,m2,m3,m4; //these motors will be used for other things
+    //private DcMotor m1,m2,m3,m4; //these motors will be used for other things
     public void runOpMode(){
         frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRight  = hardwareMap.get(DcMotor.class, "frontRight");
@@ -29,9 +29,12 @@ public class DriverControl extends LinearOpMode {
             fbRightStick = -this.gamepad1.right_stick_y;
             lrLeftStick = -this.gamepad1.left_stick_x; //if turning the wrong direction reverse the sign
             lrRightStick = -this.gamepad1.right_stick_x; //if turning the wrong direction reverse the sign
+            /*
             movingFB(fbLeftStick);
             strafe(lrLeftStick);
             turn(lrRightStick);
+            */
+            //tank(fbLeftStick, fbRightStick);
             telemetry.addData("Status", "Running");
             telemetry.update();
         }
@@ -85,4 +88,14 @@ public class DriverControl extends LinearOpMode {
         telemetry.addData("Motor Power", backLeft.getPower());
         telemetry.addData("Motor Power", backRight.getPower());
     }
+    /*
+    public void m1(double m1){
+    }
+    public void m2(double m2){
+    }
+    public void m3(double m3){
+    }
+    public void m4(double m4){
+    }
+    */
 }
