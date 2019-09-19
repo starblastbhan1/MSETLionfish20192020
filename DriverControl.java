@@ -23,6 +23,8 @@ public class DriverControl extends LinearOpMode {
         double lrLeftStick=0;
         double lrRightStick=0;
         double fbRightStick=0;
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
         //put all movement code in here
         while(opModeIsActive()){
             fbLeftStick = -this.gamepad1.left_stick_y;
