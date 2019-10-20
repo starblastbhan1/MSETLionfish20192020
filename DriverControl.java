@@ -36,6 +36,7 @@ public class DriverControl extends LinearOpMode{
         double ppDown= 0 ; // subject to change
         double hookUp = 1;//subject to change
         double hookDown = 0;//subject to change
+        boolean reverse = false;
         //put all movement code in here
         while(opModeIsActive()){
             //joystick control code
@@ -71,25 +72,37 @@ public class DriverControl extends LinearOpMode{
         }
     }
     public void tank(double fbLeftStick, double fbRightStick){ //tank drive (one joystick controls one wheel)
-
-        frontLeft.setPower(fbLeftStick);
-        backLeft.setPower(fbLeftStick);
-        backRight.setPower(fbRightStick);
-        frontRight.setPower(fbRightStick);
+        if reverse == false{
+            frontLeft.setPower(fbLeftStick);
+            backLeft.setPower(fbLeftStick);
+            backRight.setPower(fbRightStick);
+            frontRight.setPower(fbRightStick);
+        }else if reverse == true{
+            frontLeft.setPower(fbRightStick);
+            backLeft.setPower(fbRightStick);
+            backRight.setPower(fbLeftStick);
+            frontRight.setPower(fbLeftStick);
+        }
         telemetry.addData("Target Power", fbLeftStick);
         telemetry.addData("Target Power", fbRightStick);
         telemetry.addData("Motor Power", frontLeft.getPower());
         telemetry.addData("Motor Power", frontRight.getPower());
         telemetry.addData("Motor Power", backLeft.getPower());
         telemetry.addData("Motor Power", backRight.getPower());
-
+        
     }
     public void movingFB(double fbLeftStick){// moving forwards and backwards
-
-        frontLeft.setPower(fbLeftStick);
-        frontRight.setPower(fbLeftStick);
-        backLeft.setPower(fbLeftStick);
-        backRight.setPower(fbLeftStick);
+        if reverse == false{
+            frontLeft.setPower(fbLeftStick);
+            frontRight.setPower(fbLeftStick);
+            backLeft.setPower(fbLeftStick);
+            backRight.setPower(fbLeftStick);
+        }else if reverse == true{
+            frontLeft.setPower(fbRightStick);
+            frontRight.setPower(fbRightStick);
+            backLeft.setPower(fbRightStick);
+            backRight.setPower(fbEightStick);
+        }
         telemetry.addData("Target Power", fbLeftStick);
         telemetry.addData("Motor Power", frontLeft.getPower());
         telemetry.addData("Motor Power", frontRight.getPower());
@@ -98,11 +111,17 @@ public class DriverControl extends LinearOpMode{
     }
 
     public void strafe(double lrLeftStick){ //moving the root side to side w/o turning
-
-        frontLeft.setPower(lrLeftStick);
-        backLeft.setPower(-lrLeftStick);
-        frontRight.setPower(-lrLeftStick);
-        backRight.setPower(lrLeftStick);
+        if reverse == false{
+            frontLeft.setPower(lrLeftStick);
+            backLeft.setPower(-lrLeftStick);
+            frontRight.setPower(-lrLeftStick);
+            backRight.setPower(lrLeftStick);
+        }else if reverse == true{
+            frontLeft.setPower(lrRightStick);
+            backLeft.setPower(-lrRightStick);
+            frontRight.setPower(-lrRightStick);
+            backRight.setPower(lrRightStick);
+        }
         telemetry.addData("Target Power", lrLeftStick);
         telemetry.addData("Motor Power", frontLeft.getPower());
         telemetry.addData("Motor Power", frontRight.getPower());
@@ -110,11 +129,17 @@ public class DriverControl extends LinearOpMode{
         telemetry.addData("Motor Power", backRight.getPower());
     }
     public void turn(double lrRightStick){//turning in place
-
-        frontLeft.setPower(lrRightStick);
-        backLeft.setPower(-lrRightStick);
-        frontRight.setPower(lrRightStick);
-        backRight.setPower(-lrRightStick);
+        if reverse == false{
+            frontLeft.setPower(lrRightStick);
+            backLeft.setPower(-lrRightStick);
+            frontRight.setPower(lrRightStick);
+            backRight.setPower(-lrRightStick);
+        }else if reverse == true{
+            frontLeft.setPower(lrLeftStick);
+            backLeft.setPower(-lrLeftStick);
+            frontRight.setPower(lrLeftStick);
+            backRight.setPower(-lrLeftStick);
+        }
         telemetry.addData("Target Power", lrRightStick);
         telemetry.addData("Motor Power", frontLeft.getPower());
         telemetry.addData("Motor Power", frontRight.getPower());
@@ -147,5 +172,13 @@ public class DriverControl extends LinearOpMode{
         telemetry.addData("Servo Power", hooks1.getPosition());
         telemetry.addData("Servo Power", hooks2.getPosition ());
     }
-
+    
+    public void reveseMotor(this.gamepad1.a){
+         if reverse == false{
+             reverse == true;
+         }else if reverse == true{
+             reverse == false;
+         }
+    } 
+             
 }
