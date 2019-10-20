@@ -3,50 +3,41 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name="AutonCode2", group="LinearOpMode")
-public class AutonCode2 extends LinearOpMode { //redPlat
+@Autonomous(name="AutonCode2", group="example")
+public class AutonCode2 extends LinearOpMode {// blue plat
     private DcMotor frontLeft, backLeft, frontRight, backRight;
-    private Servo hooks1, hooks2, platform;
-    public int d = 4; //Diameter of Wheel
-    public double tick = 537.6; //# of ticks for one rotation
     public void runOpMode(){
-        frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight  = hardwareMap.get(DcMotor.class, "frontRight");
-        backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight  = hardwareMap.get(DcMotor.class, "backRight");
-        platform = hardwareMap.get(Servo.class, "platform");
-        hooks1 = hardwareMap.get(Servo.class, "hooks1");
-        hooks2 = hardwareMap.get(Servo.class, "hooks2");
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-        frontLeft.setDirection(DcMotor.Direction.FORWARD);
-        backLeft.setDirection(DcMotor.Direction.FORWARD);
-        frontRight.setDirection ( DcMotor.Direction.REVERSE);
+        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
 
-        /* skeleton code
+         /* skeleton code
         forward(null);
+        turn(false, null);
+        forward(null);
+        turn(true, null);
         platDown ( null );
         backwards(null);
         platUp(null);
-        turn(false, 90);
+        turn(true, null);
         forward(null);
-        turn(true, 90);
+        turn(false, null);
         forward(null);
-        turn(true, 90);
+        turn(false, null);
         forward(null);
-        turn(true, 90);
+        turn(false, null);
         platDown ( null );
         forward(null);
         platUp();
-        turn(true, 90);
+        turn(false, null);
         forward(null);
         */
-
     }
-    public int distanceCalc(int distance){
+     public int distanceCalc(int distance){
         int ticks=(int)(tick*(distance/(12.56)));
         return ticks;
     }
@@ -100,14 +91,8 @@ public class AutonCode2 extends LinearOpMode { //redPlat
         }
     }
     public void platDown(int down) {
-        platform.setPosition(down);
-        telemetry.addData("Target Power", down);
-        telemetry.addData("Servo Power", platform.getPosition());
     }
     public void platUp(int up) {
-        platform.setPosition(up);
-        telemetry.addData("Target Power", up);
-        telemetry.addData("Servo Power", platform.getPosition());
     }
     public void reset(){ //resetEncoder Values
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -122,5 +107,4 @@ public class AutonCode2 extends LinearOpMode { //redPlat
         backRight.setPower(0);
     }
 }
-
-
+}
