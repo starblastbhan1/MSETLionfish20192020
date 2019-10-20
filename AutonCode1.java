@@ -8,7 +8,7 @@ package org.firstinspires.ftc.teamcode;
 @Autonomous(name="AutonCode1", group="LinearOpMode")
 public class AutonCode1 extends LinearOpMode { //redPlat
     private DcMotor frontLeft, backLeft, frontRight, backRight;
-    private Servo hooks, platform;
+    private Servo hooks1, hooks2, platform;
     public int d = 4; //Diameter of Wheel
     public double tick = 537.6; //# of ticks for one rotation
     public void runOpMode(){
@@ -17,15 +17,17 @@ public class AutonCode1 extends LinearOpMode { //redPlat
         backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
         backRight  = hardwareMap.get(DcMotor.class, "backRight");
         platform = hardwareMap.get(Servo.class, "platform");
-        hooks = hardwareMap.get(Servo.class, "hooks");
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        hooks1 = hardwareMap.get(Servo.class, "hooks1");
+        hooks2 = hardwareMap.get(Servo.class, "hooks2");
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+        frontLeft.setDirection(DcMotor.Direction.FORWARD);
+        backLeft.setDirection(DcMotor.Direction.FORWARD);
+        frontRight.setDirection ( DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
 
         /* skeleton code
         forward(null);
-        turn(false, null);
-        forward(null);
-        turn(true, null);
         platDown ( null );
         backwards(null);
         platUp(null);
