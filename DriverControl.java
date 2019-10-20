@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
@@ -10,25 +11,29 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class DriverControl extends LinearOpMode{
 
     private DcMotor frontLeft, backLeft, frontRight, backRight;
-    private Servo hooks, platform;
+    private Servo hooks1,hooks2, platform;
     public void runOpMode(){
         frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRight  = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
         backRight  = hardwareMap.get(DcMotor.class, "backRight");
         platform = hardwareMap.get(Servo.class, "platform");
-        hooks = hardwareMap.get(Servo.class, "hooks");
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
+        hooks1 = hardwareMap.get(Servo.class, "hooks1");
+        hooks2 = hardwareMap.get(Servo.class, "hooks2");
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+        frontLeft.setDirection(DcMotor.Direction.FORWARD);
+        backLeft.setDirection(DcMotor.Direction.FORWARD);
+        frontRight.setDirection ( DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
         waitForStart();
-        double fbLeftStick=0;
-        double lrLeftStick=0;
-        double lrRightStick=0;
-        double fbRightStick=0;
-        double ppUp=1; //subject to change
-        double ppDown=0; // subject to change
+        double fbLeftStick = 0;
+        double lrLeftStick = 0;
+        double lrRightStick = 0;
+        double fbRightStick = 0;
+        double ppUp = 1; //subject to change
+        double ppDown= 0 ; // subject to change
         double hookUp = 1;//subject to change
         double hookDown = 0;//subject to change
         //put all movement code in here
@@ -39,28 +44,28 @@ public class DriverControl extends LinearOpMode{
             lrLeftStick = -this.gamepad1.left_stick_x; //if turning the wrong direction reverse the sign
             lrRightStick = -this.gamepad1.right_stick_x; //if turning the wrong direction reverse the sign
 
-            if(this.gamepad1.left_trigger>0.1){
+            if(this.gamepad1.left_trigger > 0.1){
                 platformUp(ppUp); //move the platform up
 
             }
-            else if(this.gamepad1.left_bumper==true){
+            else if(this.gamepad1.left_bumper == true){
                 platformDown(ppDown); //move the platform down
 
             }
-            if(this.gamepad1.right_trigger>0.1){
+            if(this.gamepad1.right_trigger > 0.1){
                 hUp(hookUp);
 
             }
-            else if(this.gamepad1.right_bumper==true){
+            else if(this.gamepad1.right_bumper == true){
                 hDown(hookDown);
 
             }
 
-            movingFB(fbLeftStick);
+            //movingFB(fbLeftStick);
             //strafe(lrLeftStick);
-            turn(lrRightStick);
+            //turn(lrRightStick);
 
-            //tank(fbLeftStick, fbRightStick);
+            tank(fbLeftStick, fbRightStick);
             telemetry.addData("Status", "Running");
             telemetry.update();
         }
@@ -128,15 +133,19 @@ public class DriverControl extends LinearOpMode{
         telemetry.addData("Servo Power", platform.getPosition());
     }
     public void hUp(double hook){//hook servo up
-        hooks.setPosition(hook);
+        hooks1.setPosition(hook);
+        hooks2.setPosition(hook);
         telemetry.addData("Target Power", hook);
-        telemetry.addData("Servo Power", hooks.getPosition());
+        telemetry.addData("Servo Power", hooks1.getPosition());
+        telemetry.addData("Servo Power", hooks2.getPosition ());
 
     }
     public void hDown(double hook){//hook servo down
-        hooks.setPosition(hook);
+        hooks1.setPosition(hook);
+        hooks2.setPosition(hook);
         telemetry.addData("Target Power", hook);
-        telemetry.addData("Servo Power", hooks.getPosition());
+        telemetry.addData("Servo Power", hooks1.getPosition());
+        telemetry.addData("Servo Power", hooks2.getPosition ());
     }
 
 }
